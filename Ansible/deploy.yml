@@ -1,0 +1,20 @@
+---
+- name: Deploy Docker Container
+  hosts: mygroup
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+
+    - name: Copy Docker run script to VM
+      copy:
+        src: /Projet-DevOps-main/devops-master/Ansible/container_run_on_vm_with_ansible.sh
+        dest: /usr/local/bin/container_run_on_vm_with_ansible.sh
+        mode: '0755'
+
+
+    - name: Execute Docker run script on VM
+      command: /usr/local/bin/container_run_on_vm_with_ansible.sh
